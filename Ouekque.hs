@@ -7,7 +7,8 @@ dress (Sort parent func) x = case (dress parent x) of
   Just p  -> func p
   Nothing -> Nothing
 
-anySort = Any id . Just
+anySort :: Sort a
+anySort = Any $ id . Just
 
 -- wholeNumber = Sort anySort (\x -> if x >= 0 then Just x else Nothing)
 

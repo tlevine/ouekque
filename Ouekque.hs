@@ -1,4 +1,4 @@
-type Validator = a => a -> Bool
+data Parser a b = a -> b
 
 -- type Dresser = 
 
@@ -11,3 +11,11 @@ validate (SubSort sort, validator) =
 
 any :: Any
 any 
+
+
+data Sort a b = Sort a b -> a -> b
+              | 
+
+
+any :: a => a -> Bool
+any _ = True

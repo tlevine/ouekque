@@ -1,21 +1,8 @@
-data Parser a b = a -> b
+type Sorter a b = a -> Maybe b
 
--- type Dresser = 
+any :: Sorter a a
+any = id . Just
 
-data Sort = Any
-          | SubSort Sort Validator
+-- integer :: Integral -> 
 
-validate :: Sort a, b => a -> b ->  Bool
-validate (Any ()) _ = True
-validate (SubSort sort, validator) = 
-
-any :: Any
-any 
-
-
-data Sort a b = Sort a b -> a -> b
-              | 
-
-
-any :: a => a -> Bool
-any _ = True
+main = do putStr "h"

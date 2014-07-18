@@ -1,15 +1,14 @@
-data Sort a = Sort a (Sort a) (a -> Maybe a)
-            |  Any a          (a -> Maybe a)
+data Sort a = Any           (a -> Maybe a)
+            | Sort (Sort a) (a -> Maybe a)
 
-any :: Any a
-any = id . Just
+dress :: Sort a -> a -> Maybe a
+dress (Any         func) x = func x
+dress (Sort parent func) x = case (dress parent x) of
+  Just p  -> func p
+  Nothing -> Nothing
 
-boundedInteger :: Sort Integral
-boundedInteger any
-  | bottom <= x && x <= top = Just x
-  | otherwise Nothing
+anySort = Any id . Just
 
-wholeNumber = boundedInteger 0 1
-naturalNumber = boundedInteger 1
+-- wholeNumber = Sort anySort (\x -> if x >= 0 then Just x else Nothing)
 
 main = do putStr "h"

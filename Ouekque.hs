@@ -4,8 +4,8 @@ data Sort a = Sort a (Sort a) (a -> Maybe a)
 any :: Any a
 any = id . Just
 
-boundedInteger :: 
-boundedInteger  x =
+boundedInteger :: Sort Integral
+boundedInteger any
   | bottom <= x && x <= top = Just x
   | otherwise Nothing
 

@@ -10,6 +10,7 @@ dress (Sort parent func) x = case (dress parent x) of
 anySort :: Sort a
 anySort = Any $ id . Just
 
--- wholeNumber = Sort anySort (\x -> if x >= 0 then Just x else Nothing)
+wholeNumber :: Sort Integral
+wholeNumber = Sort anySort (\x -> if x >= 0 then Just x else Nothing)
 
 main = do putStr "h"

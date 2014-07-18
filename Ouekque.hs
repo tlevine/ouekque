@@ -1,8 +1,15 @@
-type Sorter a b = a -> Maybe b
+data Sort a = Sort a (Sort a) (a -> Maybe a)
+            |  Any a          (a -> Maybe a)
 
-any :: Sorter a a
+any :: Any a
 any = id . Just
 
--- integer :: Integral -> 
+boundedInteger :: 
+boundedInteger  x =
+  | bottom <= x && x <= top = Just x
+  | otherwise Nothing
+
+wholeNumber = boundedInteger 0 1
+naturalNumber = boundedInteger 1
 
 main = do putStr "h"

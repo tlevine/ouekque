@@ -1,6 +1,6 @@
-data Sort a b c = Any             (a -> Maybe a)
-                | Sort (Sort a b) (b -> Maybe c)
-                | Join (Sort a b) (Sort b c)
+data Sort a = Any           (a -> Maybe a)
+            | Sort (Sort a) (a -> Maybe a)
+            | Join (Sort a) (Sort a)
 
 dress :: Sort a -> a -> Maybe a
 dress (Any         func) x = func x
@@ -13,14 +13,15 @@ dress (Join (Sort mother motherFunc) (Sort father fatherFunc)) x = case (dress m
     Nothing -> Nothing
   Nothing -> Nothing
 
-anySort :: Sort a a a
+anySort :: Sort a
 anySort = Any $ id . Just
+
 
 
 
 -- Some sorts!
 -- Move these to a separate file eventually
-integer :: Sort Int Int
+integer :: Sort Int
 integer = Sort anySort id
 
 positiveInteger :: Sort Int
@@ -30,7 +31,7 @@ evenNumber :: Sort Int
 evenNumber = Sort integer $ \x -> if (even x) then Just x else Nothing
 
 missing :: Sort String
-missing = Sort String $ \x -> if (x == "NA") then Just x else Nothing
+missing = Sort anySort $ \x -> if (x == "NA") then Just x else Nothing
 
 
 main = do putStr "h"

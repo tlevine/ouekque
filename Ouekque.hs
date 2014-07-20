@@ -8,8 +8,8 @@ dress (Sort parent func) x = case (dress parent x) of
   Just p  -> func p
   Nothing -> Nothing
 dress (Join (Sort mother motherFunc) (Sort father fatherFunc)) x = case (dress mother x) of
-  Just y -> case (dress father y) of
-    Just z -> z
+  Just y -> case (dress father $ motherFunc y) of
+    Just z -> fatherFunc z
     Nothing -> Nothing
   Nothing -> Nothing
 
@@ -18,11 +18,10 @@ anySort = Any $ id . Just
 
 
 
-
 -- Some sorts!
 -- Move these to a separate file eventually
 integer :: Sort Int
-integer = Sort anySort id
+integer = Sort anySort $ id . Just
 
 positiveInteger :: Sort Int
 positiveInteger = Sort integer $ \x -> if x >= 0 then Just x else Nothing
